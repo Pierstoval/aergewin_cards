@@ -1,0 +1,16 @@
+{
+    "name": "pierstoval/cards_generator",
+    "type": "project",
+    "require": {
+        "phpoffice/phpspreadsheet": "^1.26",
+        "symfony/console": "^6.2",
+        "symfony/error-handler": "^6.2"
+    },
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Alex Rock Ancelet",
+            "email": "pierstoval@gmail.com"
+        }
+    ]
+}
