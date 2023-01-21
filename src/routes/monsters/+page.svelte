@@ -1,10 +1,17 @@
 <script lang="ts">
-    import type {CardItem} from '$lib/CardItem.ts';
-    import EventCard from '$lib/EventCard.svelte';
+    import type {MonsterItem} from '$lib/MonsterItem.ts';
+    import MonsterCard from '$lib/MonsterCard.svelte';
     import BackgroundCard from '$lib/BackgroundCard.svelte';
-    import cards from '$lib/data/cards.json';
+    import cards from '$lib/data/monsters.json';
 
-    let data: Array<CardItem> = cards;
+    let data: Array<MonsterItem> = [];
+
+    cards.forEach((card: MonsterItem) => {
+        for (let i = 0; i < card.amount; i++) {
+            console.info({data});
+            data.push(card);
+        }
+    });
 
     let background_only = false;
 </script>
@@ -14,9 +21,9 @@
 <div style="text-align: center;">
     {#each data as card}
         {#if background_only}
-            <BackgroundCard />
+            <BackgroundCard monster={true} />
         {:else}
-            <EventCard {card} />
+            <MonsterCard {card} />
         {/if}
     {/each}
 </div>

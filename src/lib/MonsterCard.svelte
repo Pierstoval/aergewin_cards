@@ -1,49 +1,41 @@
 <script lang="ts">
-    import type {CardItem} from "$lib/CardItem";
+    import type {MonsterItem} from "./MonsterItem";
     import { Buffer } from 'buffer';
     import svg from '$lib/svg_filter';
 
-    export let card: CardItem;
+    export let card: MonsterItem;
 
     const svgImage = Buffer.from(svg).toString('base64');
 
-    const hueRotate = card.Style === 'Malus' ? 20 : 90;
-    const invert = card.Style === 'Malus' ? 75 : 17;
-    const faIconCardStyle = getIcon();
-
-    function getIcon(): string {
-        if (card.Style === 'Bonus') {
-            if (card.Type === 'Persistant') {
-                return 'sun';
-            }
-            return 'heart';
-        }
-        if (card.Type === 'Persistant') {
-            return 'cloud';
-        }
-        return 'skull-crossbones';
-    }
+    const hueRotate = 0;
+    const invert = 0;
 </script>
 
-<div class="card-container" class:malus={card.Style === 'Malus'} class:bonus={card.Style === 'Bonus'}>
+<div class="card-container">
     <div class="card-background" style="filter:grayscale(50%) sepia(20%) invert({invert}%) hue-rotate({hueRotate}deg) contrast(150%);background:url(data:image/svg+xml;base64,{svgImage});"></div>
     <div class="card-frame">
         <div class="frame-header">
-            <div>
-                <h1 class="name">{card.Nom}</h1>
-                <h2 class="type">{card.Style} {card.Type}</h2>
-            </div>
-            <span class="frame-icon fa fa-{faIconCardStyle}"></span>
+            <h1 class="name">{card.type}</h1>
         </div>
 
-        <div class="frame-text-box">
-            <p class="description ftb-inner-margin">
-                {card.Effet}
-            </p>
-            <p class="flavour-text">"{card.Storyline}"</p>
+        <div class="frame-art" style="background-image: url('/cards/{card.type}.png');">
         </div>
 
-        <div class="frame-bottom-info inner-margin">
+        <div class="frame-type-line">
+            <span class="type">
+                {card.special || ''}
+            </span>
+        </div>
+
+        <div class="frame-badges">
+            <div class="frame-bottom"><i class="fa-duotone fa-sword"></i>  <span>{card.attaque}</span></div>
+            <div class="frame-bottom"><i class="fa-duotone fa-shield-quartered"></i>  <span>{card.attaque}</span></div>
+            <div class="frame-bottom"><i class="fa-duotone fa-heart-half"></i>  <span>{card.pv}</span></div>
+            <div class="frame-bottom"><img src="/speed_icon.png" width="23" height="23">  <span>{card.vitesse}</span></div>
+        </div>
+
+        <div class="frame-bottom-info">
+
             <div class="fbi-left">
                 <p>Aergewin</p>
                 <p>2023 &#x2022; FR</p>
@@ -52,6 +44,7 @@
             <div class="fbi-right">
                 &#x99; &amp; &#169; 2023 Alex Rock
             </div>
+
         </div>
     </div>
 </div>
@@ -66,7 +59,8 @@
         -------------------------
     */
     .frame-header,
-    .frame-type-line {
+    .frame-type-line,
+    .frame-bottom {
         border-bottom: 4px solid #a9a9a9;
         border-left: 2px solid #a9a9a9;
         border-top: 1px solid #fff;
@@ -85,6 +79,10 @@
         box-shadow: 0 0 0 5px var(--frame-color), -3px 3px 2px 5px #171314;
     }
 
+    .frame-bottom {
+        box-shadow: 0 0 0 2px #171314, 0 0 0 5px var(--frame-color), 0 3px 2px 7px #171314;
+    }
+
     /*
         ----------------------
         ----------------------
@@ -94,6 +92,7 @@
     */
     .frame-header,
     .frame-type-line,
+    .frame-bottom,
     .frame-text-box {
         overflow: hidden;
     }
@@ -108,12 +107,7 @@
         border-radius: 25px;
         box-sizing: border-box;
         background: #171314;
-        &.malus {
-            --frame-color: #CC5555;
-        }
-        &.bonus {
-            --frame-color: #5555CC;
-        }
+        --frame-color: #d7915d;
     }
     .card-background {
         position: absolute;
@@ -150,6 +144,7 @@
 
 
     .frame-header,
+    .frame-bottom,
     .frame-type-line {
         background:
                 linear-gradient( 0deg, rgba(201, 216, 201, .3), rgba(201, 216, 209, .3) ),
@@ -159,39 +154,65 @@
         margin-right: 5px;
         padding: 8px 0;
         display: flex;
-        flex-direction: row;
         justify-content: space-between;
         border-radius: 18px/40px;
     }
-    /*
-      Tue 27/3
-    */
+    .frame-type-line {
+        padding: 50px 0;
+        margin: 20px auto 45px auto;
+        width: 95%;
+        height: 170px;
+        border-radius: 18px/20px;
+    }
+
+
+    .frame-badges {
+        position: absolute;
+        bottom: 27px;
+        width: 100%;
+        padding: 0 15px;
+        display: flex;
+        justify-content: space-between;
+        .frame-bottom {
+            padding: 4px 8px 2px;
+            color: black;
+            font-weight: bold;
+            font-size: 23px;
+        }
+    }
+
     .name,
     .type {
+        font-size: 1.3em;
         margin-left: 10px;
         align-self: baseline;
     }
     .name {
-        font-size: 1.8em;
         font-weight: 600;
-        margin-bottom: 8px;
     }
     .type {
-        font-size: 1em;
+        text-align: left;
     }
 
+    #mana-icon {
+        font-size: 1.4em;
+        background: #ADD3AC;
+        border-radius: 50%;
+        box-sizing: border-box;
+        box-shadow: -0.05em 0.12em 0px 0 black;
+        margin-right: 5px;
+        height: 20px;
+        align-self: center;
+    }
     .frame-art {
-        width: 425px;
+        width: 415px;
         height: 320px;
-        margin: 0 10px;
+        margin: 1px auto 0;
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center;
     }
 
-    .frame-type-line {
-        margin-top: 0;
-    }
     .frame-icon {
         margin-right: 14px;
         font-size: 20px;
@@ -200,15 +221,14 @@
 
     .frame-text-box {
         width: 425px;
-        height: 527px;
-        margin: 10px;
+        height: 232px;
+        margin: 0 10px;
         background: #d3ded6 url(https://image.ibb.co/dFcNx7/tile_bg_2.jpg);
         display: flex;
         flex-direction: column;
         justify-content: space-around;
-        padding: 50px 10px;
-        font-size: 2.2em;
-        border-radius: 20px;
+        padding: 50px 6px;
+        font-size: 1.2em;
     }
 
     .flavour-text {
@@ -230,14 +250,12 @@
 
     .frame-bottom-info {
         color: white;
+        position: relative;
         display: flex;
         justify-content: space-between;
-        margin: 5px 15px 0 15px;
+        margin: 15px 15px -10px 15px;
     }
 
-    fbi-left {
-        flex: 1;
-    }
     .fbi-left p:first-of-type {
         margin-bottom: 1px;
     }

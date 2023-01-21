@@ -8,12 +8,12 @@
 <div class="character-container" class:background_only>
     <div class="character-content">
         <div class="flex toppart">
-            <h1>{character.Classe}</h1>
+            <h1>{character.classe}</h1>
             <div class="flex">
                 <table>
                     <tr>
                         <td class="pvmaxtablecell titletext2">PV max</td>
-                        <td class="text-l pvtablecellmax titletext">{character.PV || ''}</td>
+                        <td class="text-l pvtablecellmax titletext">{character.pv || ''}</td>
                     </tr>
                 </table>
                 <table>
@@ -28,23 +28,23 @@
             <table class="actions">
                 <tr>
                     <td class="firsttableleft titletext">Actions</td>
-                    <td class="firsttableright">{character["Nombre d'actions"] || ''}</td>
+                    <td class="firsttableright">{character.nombre_actions|| ''}</td>
                 </tr>
                 <tr>
                     <td class="firsttableleft titletext">Attaque</td>
-                    <td class="firsttableright">{character.Attaque || ''}</td>
+                    <td class="firsttableright">{character.attaque || ''}</td>
                 </tr>
                 <tr>
                     <td class="firsttableleft titletext">Défense</td>
-                    <td class="firsttableright">{character.Défense || ''}</td>
+                    <td class="firsttableright">{character.defense || ''}</td>
                 </tr>
                 <tr>
                     <td class="firsttableleft titletext">Dégâts</td>
-                    <td class="firsttableright">{character.Dégâts || ''}</td>
+                    <td class="firsttableright">{character.degats || ''}</td>
                 </tr>
                 <tr>
                     <td class="firsttableleft titletext">Arme</td>
-                    <td class="firsttableright">{character.Arme || ''}</td>
+                    <td class="firsttableright">{character.arme || ''}</td>
                 </tr>
             </table>
             <div>
@@ -53,20 +53,20 @@
                         <td class="weaponinhandtitle">
                             <span class="titletext2">Arme en main</span>
                         </td>
-                        <td class="weaponinhandtxt">{character.Dégâts ? 'oui' : ''}</td>
+                        <td class="weaponinhandtxt">{character.degats ? 'oui' : ''}</td>
                     </tr>
                 </table>
                 <table class="capacities">
                     <tr>
                         <td class="capacity">
                             <span class="titletext2">Capacité arme</span>
-                            <br>{character["Capacité arme"] || ''}
+                            <br>{character.capacite_arme || ''}
                         </td>
                     </tr>
                     <tr>
                         <td class="capacity">
                             <span class="titletext2">Capacité spéciale</span>
-                            <br>{character["Capacité spéciale"] || ''}
+                            <br>{character.capacite_speciale || ''}
                         </td>
                     </tr>
                 </table>

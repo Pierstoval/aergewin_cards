@@ -51,11 +51,11 @@ do {
     }
 
     $cards[] = [
-        'Nom' => $sheet->getCell('A'.$currentRow)->getValue(),
-        'Style' => $sheet->getCell('B'.$currentRow)->getValue(),
-        'Type' => $sheet->getCell('C'.$currentRow)->getValue(),
-        'Effet' => $sheet->getCell('D'.$currentRow)->getValue(),
-        'Storyline' => $sheet->getCell('E'.$currentRow)->getValue(),
+        'nom' => $sheet->getCell('A'.$currentRow)->getValue(),
+        'style' => $sheet->getCell('B'.$currentRow)->getValue(),
+        'type' => $sheet->getCell('C'.$currentRow)->getValue(),
+        'effet' => $sheet->getCell('D'.$currentRow)->getValue(),
+        'storyline' => $sheet->getCell('E'.$currentRow)->getValue(),
     ];
 
     $currentRow++;
@@ -94,25 +94,16 @@ do {
         continue;
     }
 
-    //
-    //
-    //
-    //
-    //
-    //
-    //
-    //
-    //
     $characters[] = [
-        'Classe' => $sheet->getCell('A'.$currentRow)->getValue(),
-        'Attaque' => $sheet->getCell('B'.$currentRow)->getValue(),
-        'Défense' => $sheet->getCell('C'.$currentRow)->getValue(),
-        'PV' => $sheet->getCell('D'.$currentRow)->getValue(),
-        'Nombre d\'actions' => $sheet->getCell('E'.$currentRow)->getValue(),
-        'Capacité spéciale' => $sheet->getCell('F'.$currentRow)->getValue(),
-        'Arme' => $sheet->getCell('G'.$currentRow)->getValue(),
-        'Dégâts' => $sheet->getCell('H'.$currentRow)->getCalculatedValue(),
-        'Capacité arme' => $sheet->getCell('I'.$currentRow)->getCalculatedValue(),
+        'classe' => $sheet->getCell('A'.$currentRow)->getValue(),
+        'attaque' => $sheet->getCell('B'.$currentRow)->getValue(),
+        'defense' => $sheet->getCell('C'.$currentRow)->getValue(),
+        'pv' => $sheet->getCell('D'.$currentRow)->getValue(),
+        'nombre_actions' => $sheet->getCell('E'.$currentRow)->getValue(),
+        'capacite_speciale' => $sheet->getCell('F'.$currentRow)->getValue(),
+        'arme' => $sheet->getCell('G'.$currentRow)->getValue(),
+        'degats' => $sheet->getCell('H'.$currentRow)->getCalculatedValue(),
+        'capacite_arme' => $sheet->getCell('I'.$currentRow)->getCalculatedValue(),
     ];
 
     $currentRow++;
@@ -124,6 +115,60 @@ $io->block('Saving them as a JSON file');
 
 $json = json_encode($characters, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR);
 $jsonFile = $outputDir.'characters.json';
+file_put_contents($jsonFile, $json);
+
+$io->success(sprintf('Done! Exported to file %s', $jsonFile));
+
+//
+//
+//
+//
+//
+//
+
+$io->block('Fetching monsters...');
+$io->progressStart();
+
+$sheet = $doc->getSheetByName('Monsters');
+
+$monsters = [];
+$startRow = $currentRow = 3;
+
+do {
+    $io->progressAdvance();
+    $firstCell = trim($sheet->getCell('A'.$currentRow)->getValue() ?: '');
+
+    if (!$firstCell) {
+        continue;
+    }
+
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    $monsters[] = [
+        'type' => $sheet->getCell('A'.$currentRow)->getValue(),
+        'attaque' => $sheet->getCell('B'.$currentRow)->getValue(),
+        'defense' => $sheet->getCell('C'.$currentRow)->getValue(),
+        'pv' => $sheet->getCell('D'.$currentRow)->getValue(),
+        'degats' => $sheet->getCell('E'.$currentRow)->getValue(),
+        'vitesse' => $sheet->getCell('F'.$currentRow)->getValue(),
+        'special' => $sheet->getCell('G'.$currentRow)->getValue(),
+        'amount' => $sheet->getCell('H'.$currentRow)->getValue(),
+    ];
+
+    $currentRow++;
+} while ($firstCell);
+
+$io->progressFinish();
+
+$io->block('Saving them as a JSON file');
+
+$json = json_encode($monsters, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR);
+$jsonFile = $outputDir.'monsters.json';
 file_put_contents($jsonFile, $json);
 
 $io->success(sprintf('Done! Exported to file %s', $jsonFile));

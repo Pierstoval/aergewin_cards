@@ -2,11 +2,16 @@
     import { Buffer } from 'buffer';
     import svg from '$lib/svg_filter';
 
+    export let monster: boolean = false;
+
     const svgImage = Buffer.from(svg).toString('base64');
 </script>
 
 <div class="card-container">
-    <div class="card-background" style="background:url(data:image/svg+xml;base64,{svgImage});"></div>
+    <div class="card-background" class:monster style="background:url(data:image/svg+xml;base64,{svgImage});"></div>
+    {#if monster}
+        <img id="barbu" src="/barbu.png" />
+    {/if}
 </div>
 
 <style lang="scss">
@@ -23,6 +28,9 @@
     }
     .card-background {
         filter: saturate(967%) contrast(121%) invert(100%);
+        &.monster {
+            filter: invert(100%) brightness(20%) saturate(0);
+        }
         position: absolute;
         top: 0;
         left: 0;
@@ -32,5 +40,17 @@
         border-radius: 20px;
         display: flex;
         z-index: 0;
+    }
+    #barbu {
+        --barburatio: 0.75;
+        --barbuheight: 395px;
+        width: calc(255px * var(--barburatio));
+        height: calc(var(--barbuheight) * var(--barburatio));
+        position: relative;
+        top: 50%;
+        margin-top: calc(-0.38 * var(--barbuheight));
+        z-index: 1;
+        mix-blend-mode: difference;
+        filter: blur(0.45px) drop-shadow(0 0 1px white) drop-shadow(0 0 1px white) drop-shadow(0 0 1px white) drop-shadow(0 0 10px red) drop-shadow(0 0 30px black) drop-shadow(0 0 30px black) drop-shadow(0 0 30px black);
     }
 </style>

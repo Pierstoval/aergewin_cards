@@ -1,11 +1,11 @@
 export class CharacterItem {
-    "Classe": string = '';
-    "Attaque": number = 0;
-    "Défense": number = 0;
-    "PV": number = 0;
-    "Nombre d'actions": number = 0;
-    "Capacité spéciale": string = '';
-    "Arme": string = '';
-    "Dégâts": number = 0;
-    "Capacité arme": string = '';
+    "classe": string = '';
+    "attaque": number = 0;
+    "defense": number = 0;
+    "pv": number = 0;
+    "nombre_actions": number = 0;
+    "capacite_speciale": string = '';
+    "arme": string = '';
+    "degats": number = 0;
+    "capacite_arme": string = '';
 }
