@@ -51,6 +51,6 @@
         margin-top: calc(-0.38 * var(--barbuheight));
         z-index: 1;
         mix-blend-mode: difference;
-        filter: blur(0.45px) drop-shadow(0 0 1px white) drop-shadow(0 0 1px white) drop-shadow(0 0 1px white) drop-shadow(0 0 10px red) drop-shadow(0 0 30px black) drop-shadow(0 0 30px black) drop-shadow(0 0 30px black);
+        filter: drop-shadow(0 0 1px white) drop-shadow(0 0 1px white) drop-shadow(0 0 1px white) drop-shadow(0 0 10px red) drop-shadow(0 0 30px black) drop-shadow(0 0 30px black) drop-shadow(0 0 30px black);
     }
 </style>
