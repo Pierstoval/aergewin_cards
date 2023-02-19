@@ -21,7 +21,7 @@
 <div style="text-align: center;">
     {#each data as card}
         {#if background_only}
-            <BackgroundCard monster={true} />
+            <BackgroundCard style="monster" />
         {:else}
             <MonsterCard {card} />
         {/if}

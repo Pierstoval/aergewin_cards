@@ -5,4 +5,5 @@
     <li><a href="/characters">Character sheets</a></li>
     <li><a href="/empty-sheet">Empty character sheets</a></li>
     <li><a href="/monsters">Monsters</a></li>
+    <li><a href="/discoveries">Discoveries</a></li>
 </ul>

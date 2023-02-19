@@ -37,7 +37,7 @@ $doc->discardMacros();
 $io->block('Fetching event cards...');
 $io->progressStart();
 
-$sheet = $doc->getSheetByName('Cards');
+$sheet = $doc->getSheetByName('Events');
 
 $cards = [];
 $startRow = $currentRow = 12;
@@ -118,6 +118,50 @@ $jsonFile = $outputDir.'characters.json';
 file_put_contents($jsonFile, $json);
 
 $io->success(sprintf('Done! Exported to file %s', $jsonFile));
+
+//
+//
+//
+//
+//
+//
+
+$io->block('Fetching discoveries cards...');
+$io->progressStart();
+
+$sheet = $doc->getSheetByName('Discoveries');
+
+$cards = [];
+$startRow = $currentRow = 6;
+
+do {
+    $io->progressAdvance();
+    $firstCell = trim($sheet->getCell('A'.$currentRow)->getValue() ?: '');
+
+    if (!$firstCell) {
+        continue;
+    }
+
+    $cards[] = [
+        'nom' => $sheet->getCell('A'.$currentRow)->getValue(),
+        'type' => $sheet->getCell('B'.$currentRow)->getValue(),
+        'effet' => $sheet->getCell('C'.$currentRow)->getValue(),
+        'storyline' => $sheet->getCell('D'.$currentRow)->getValue(),
+    ];
+
+    $currentRow++;
+} while ($firstCell);
+
+$io->progressFinish();
+
+$io->block('Saving them as a JSON file');
+
+$json = json_encode($cards, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR);
+$jsonFile = $outputDir.'discoveries.json';
+file_put_contents($jsonFile, $json);
+
+$io->success(sprintf('Done! Exported to file %s', $jsonFile));
+
 
 //
 //

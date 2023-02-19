@@ -2,55 +2,56 @@
     import { Buffer } from 'buffer';
     import svg from '$lib/svg_filter';
 
-    export let monster: boolean = false;
+    export let style: string = '';
 
     const svgImage = Buffer.from(svg).toString('base64');
 </script>
 
-<div class="card-container">
-    <div class="card-background" class:monster style="background:url(data:image/svg+xml;base64,{svgImage});"></div>
-    {#if monster}
-        <img id="barbu" src="/barbu.png" />
-    {/if}
+<div class="card-container {style}">
+    <div class="rel card-image"></div>
+    <div class="rel card-filter" style="background:url(data:image/svg+xml;base64,{svgImage});"></div>
 </div>
 
 <style lang="scss">
+    .rel {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
     .card-container {
         display: inline-block;
-        border: 1px solid black;
+        border: 0 none transparent;
         position: relative;
         width: 500px;
         height: 700px;
         margin: 5px;
-        border-radius: 25px;
+        border-radius: 0;
         box-sizing: border-box;
         background: #171314;
+        overflow: hidden;
     }
-    .card-background {
-        filter: saturate(967%) contrast(121%) invert(100%);
-        &.monster {
-            filter: invert(100%) brightness(20%) saturate(0);
-        }
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: calc(100% - 40px);
-        height: calc(100% - 40px);
-        margin: 20px;
-        border-radius: 20px;
-        display: flex;
+    .card-image {
         z-index: 0;
+        background-image: url(/bg_parchment.png);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 500px 700px;
+        filter: invert(0%);
+        --imgratio: 0.75;
+        .event & {
+            filter: hue-rotate(250deg) saturate(300%);
+        }
+        .monster & {
+            filter: hue-rotate(0deg) saturate(300%);
+        }
+        .discovery & {
+            filter: hue-rotate(180deg) saturate(100%);
+        }
     }
-    #barbu {
-        --barburatio: 0.75;
-        --barbuheight: 395px;
-        width: calc(255px * var(--barburatio));
-        height: calc(var(--barbuheight) * var(--barburatio));
-        position: relative;
-        top: 50%;
-        margin-top: calc(-0.38 * var(--barbuheight));
+    .card-filter {
         z-index: 1;
-        mix-blend-mode: difference;
-        filter: drop-shadow(0 0 1px white) drop-shadow(0 0 1px white) drop-shadow(0 0 1px white) drop-shadow(0 0 10px red) drop-shadow(0 0 30px black) drop-shadow(0 0 30px black) drop-shadow(0 0 30px black);
+        filter: saturate(0%) contrast(100%) invert(100%) opacity(0.2);
     }
 </style>

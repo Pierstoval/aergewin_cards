@@ -1,25 +1,22 @@
 <script lang="ts">
-    import type {CardItem} from "$lib/CardItem";
+    import type {DiscoveryCard} from "$lib/DiscoveryCard";
     import { Buffer } from 'buffer';
     import svg from '$lib/svg_filter';
 
-    export let card: CardItem;
+    export let card: DiscoveryCard;
+
+    let invert = 80;
+    let hueRotate = 250;
 
     const svgImage = Buffer.from(svg).toString('base64');
 
-    const hueRotate = card.style === 'Malus' ? 20 : 90;
-    const invert = card.style === 'Malus' ? 75 : 17;
     const faIconCardStyle = getIcon();
 
     function getIcon(): string {
-        if (card.style === 'Bonus') {
-            if (card.type === 'Persistant') {
-                return 'sun';
-            }
+        if (card.type === 'Bonus') {
+            invert = 20;
+            hueRotate = 60;
             return 'heart';
-        }
-        if (card.type === 'Persistant') {
-            return 'cloud';
         }
         return 'skull-crossbones';
     }

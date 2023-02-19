@@ -104,7 +104,6 @@
         width: 500px;
         height: 700px;
         margin: 5px;
-        border-radius: 25px;
         box-sizing: border-box;
         background: #171314;
         --frame-color: #d7915d;
@@ -159,9 +158,9 @@
     }
     .frame-type-line {
         padding: 50px 0;
-        margin: 20px auto 45px auto;
+        margin: 20px auto 55px auto;
         width: 95%;
-        height: 170px;
+        height: 160px;
         border-radius: 18px/20px;
     }
 
@@ -177,7 +176,7 @@
             padding: 4px 8px 2px;
             color: black;
             font-weight: bold;
-            font-size: 23px;
+            font-size: 32px;
         }
     }
 
