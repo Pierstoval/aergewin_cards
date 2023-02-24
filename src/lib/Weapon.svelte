@@ -1,53 +1,33 @@
 <script lang="ts">
-    import type {CharacterItem} from "./CharacterItem";
+    import type {WeaponItem} from "./WeaponItem";
 
-    export let character: CharacterItem;
+    export let weapon: WeaponItem;
     export let background_only: boolean;
 </script>
 
-<div class="character-container" class:background_only>
-    <div class="character-content relative">
+<div class="weapon-container" class:background_only>
+    <div class="weapon-content relative">
         <div class="flex toppart">
-            <h1>{character.classe}</h1>
+            <h1>{weapon.nom}</h1>
         </div>
 
         <table id="actions" class="absolute left0 bottom0">
             <tr>
-                <td class="actionleft titletext">
-                    <i class="fa-duotone fa-heart"></i>
-                </td>
-                <td class="actionright text-l titletext">{character.pv || ''}</td>
-            </tr>
-            <tr>
                 <td class="actionleft titletext relative">
-                    <img src="/speed_icon.png" class="absolute speed_icon">
-                </td>
-                <td class="actionright titletext">{character.nombre_actions|| ''}</td>
-            </tr>
-            <tr>
-                <td class="actionleft titletext">
-                    <i class="fa-duotone fa-sword"></i>
+                    <i class="fa-duotone fa-dagger absolute"></i>
+                    <i class="fa-duotone fa-droplet absolute"></i>
                 </td>
                 <td class="actionright titletext">
-                    {character.attaque || ''}
+                    {weapon.degats || ''}
                 </td>
-            </tr>
-            <tr>
-                <td class="actionleft titletext">
-                    <i class="fa-duotone fa-shield-quartered"></i>
-                </td>
-                <td class="actionright titletext">{character.defense || ''}</td>
             </tr>
         </table>
         <table class="absolute right0 bottom0">
             <tr>
                 <td id="capacity">
                     <span class="titletext2">Capacités spéciales</span>
-                    <br>{character.capacite_speciale || ''}
+                    <br>{weapon.carac || ''}
                 </td>
-            </tr>
-            <tr id="inventory">
-                <td class="titletext2">Inventaire &amp; expérience</td>
             </tr>
         </table>
     </div>
@@ -58,7 +38,7 @@
         --imgratio: 1.20;
         --sizesratio: 0.75;
         --background-width: calc(600px * var(--sizesratio));
-        --background-height: calc(500px * var(--sizesratio));
+        --background-height: calc(275px * var(--sizesratio));
     }
     @font-face {
         font-family: 'carolingia';
@@ -81,7 +61,7 @@
     }
     .titletext {
         font-family: 'carolingia', serif;
-        font-size: calc(26px * var(--sizesratio));
+        font-size: calc(35px * var(--sizesratio));
     }
     .titletext2 {
         font-family: 'carolingia', serif;
@@ -92,6 +72,18 @@
     }
     .flex {
         display: flex;
+    }
+    .fa-dagger {
+        transform: rotate(-135deg);
+        top: calc(6px * var(--sizesratio));
+        left: calc(14px * var(--sizesratio));
+    }
+    .fa-droplet {
+        transform: rotate(-16deg) scaleX(80%);
+        color: darkred;
+        top: calc(14px * var(--sizesratio));
+        left: calc(39px * var(--sizesratio));
+        font-size: calc(10px * var(--sizesratio));
     }
     .toppart {
         justify-content: space-between;
@@ -119,7 +111,6 @@
         .actionright {
             text-align: center;
             width: calc(60px * var(--sizesratio));
-            font-size: calc(1.5rem * var(--sizesratio));
             font-weight: bolder;
         }
     }
@@ -145,7 +136,7 @@
             vertical-align: top;
         }
     }
-    .character-container {
+    .weapon-container {
         --padY: 35px;
         --padX: 30px;
         font-size: calc(16px * var(--sizesratio));
@@ -155,13 +146,13 @@
         background: transparent url('/esteren_set1_parchemin2.png') no-repeat;
         background-size: calc(var(--background-width) / var(--imgratio)) calc(var(--background-height) / var(--imgratio));
         padding: calc(var(--padY) * var(--sizesratio)) calc(var(--padX) * var(--sizesratio));
-        .character-content {
+        .weapon-content {
             width: calc(var(--background-width) / var(--imgratio) - var(--padX) * 2);
             height: calc(var(--background-height) / var(--imgratio) - var(--padY) * 2);
         }
         &.background_only {
             transform: scaleX(-1);
-            .character-content {
+            .weapon-content {
                 display: none;
                 visibility: hidden;
             }

@@ -43,12 +43,12 @@ $cards = [];
 $startRow = $currentRow = 12;
 
 do {
-    $io->progressAdvance();
     $firstCell = trim($sheet->getCell('A'.$currentRow)->getValue() ?: '');
 
     if (!$firstCell) {
         continue;
     }
+    $io->progressAdvance();
 
     $cards[] = [
         'nom' => $sheet->getCell('A'.$currentRow)->getValue(),
@@ -87,12 +87,12 @@ $characters = [];
 $startRow = $currentRow = 3;
 
 do {
-    $io->progressAdvance();
     $firstCell = trim($sheet->getCell('A'.$currentRow)->getValue() ?: '');
 
     if (!$firstCell) {
         continue;
     }
+    $io->progressAdvance();
 
     $characters[] = [
         'classe' => $sheet->getCell('A'.$currentRow)->getValue(),
@@ -135,12 +135,12 @@ $cards = [];
 $startRow = $currentRow = 6;
 
 do {
-    $io->progressAdvance();
     $firstCell = trim($sheet->getCell('A'.$currentRow)->getValue() ?: '');
 
     if (!$firstCell) {
         continue;
     }
+    $io->progressAdvance();
 
     $cards[] = [
         'nom' => $sheet->getCell('A'.$currentRow)->getValue(),
@@ -179,12 +179,12 @@ $monsters = [];
 $startRow = $currentRow = 3;
 
 do {
-    $io->progressAdvance();
     $firstCell = trim($sheet->getCell('A'.$currentRow)->getValue() ?: '');
 
     if (!$firstCell) {
         continue;
     }
+    $io->progressAdvance();
 
     //
     //
@@ -213,6 +213,57 @@ $io->block('Saving them as a JSON file');
 
 $json = json_encode($monsters, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR);
 $jsonFile = $outputDir.'monsters.json';
+file_put_contents($jsonFile, $json);
+
+$io->success(sprintf('Done! Exported to file %s', $jsonFile));
+
+
+//
+//
+//
+//
+//
+//
+
+$io->block('Fetching weapons...');
+$io->progressStart();
+
+$sheet = $doc->getSheetByName('Weapons');
+
+$monsters = [];
+$startRow = $currentRow = 2;
+
+do {
+    $firstCell = trim($sheet->getCell('A'.$currentRow)->getValue() ?: '');
+
+    if (!$firstCell) {
+        continue;
+    }
+    $io->progressAdvance();
+
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    $monsters[] = [
+        'nom' => $sheet->getCell('A'.$currentRow)->getValue(),
+        'cout' => $sheet->getCell('B'.$currentRow)->getValue(),
+        'degats' => $sheet->getCell('C'.$currentRow)->getValue(),
+        'carac' => $sheet->getCell('D'.$currentRow)->getValue(),
+    ];
+
+    $currentRow++;
+} while ($firstCell);
+
+$io->progressFinish();
+
+$io->block('Saving them as a JSON file');
+
+$json = json_encode($monsters, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR);
+$jsonFile = $outputDir.'weapons.json';
 file_put_contents($jsonFile, $json);
 
 $io->success(sprintf('Done! Exported to file %s', $jsonFile));

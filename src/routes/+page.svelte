@@ -6,4 +6,30 @@
     <li><a href="/empty-sheet">Empty character sheets</a></li>
     <li><a href="/monsters">Monsters</a></li>
     <li><a href="/discoveries">Discoveries</a></li>
+    <li><a href="/weapons">Weapons</a></li>
 </ul>
+
+<style lang="scss">
+    h1, ul {
+        display: block;
+        width: 50%;
+        min-width: 300px;
+        margin: 20px auto 0;
+        a {
+            max-width: 250px;
+            display: block;
+            padding: 5px 8px;
+            border: solid 1px transparent;
+            border-radius: 10px;
+            color: blue;
+            &:hover {
+                background-color: #ddffff;
+                border-color: #9ad9d9;
+            }
+            &:active, &:focus {
+                background-color: #cdecec;
+                border-color: #86bdbd;
+            }
+        }
+    }
+</style>

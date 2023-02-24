@@ -28,7 +28,7 @@
         <div class="frame-header">
             <div>
                 <h1 class="name">{card.nom.trim()}</h1>
-                <h2 class="type">{card.style} {card.type}</h2>
+                <h2 class="type">{card.type} découverte</h2>
             </div>
             <span class="frame-icon fa fa-{faIconCardStyle}"></span>
         </div>
