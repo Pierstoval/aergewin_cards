@@ -131,7 +131,7 @@ $io->progressStart();
 
 $sheet = $doc->getSheetByName('Discoveries');
 
-$cards = [];
+$discoveries = [];
 $startRow = $currentRow = 6;
 
 do {
@@ -142,7 +142,7 @@ do {
     }
     $io->progressAdvance();
 
-    $cards[] = [
+    $discoveries[] = [
         'nom' => $sheet->getCell('A'.$currentRow)->getValue(),
         'type' => $sheet->getCell('B'.$currentRow)->getValue(),
         'effet' => $sheet->getCell('C'.$currentRow)->getValue(),
@@ -156,7 +156,7 @@ $io->progressFinish();
 
 $io->block('Saving them as a JSON file');
 
-$json = json_encode($cards, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR);
+$json = json_encode($discoveries, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR);
 $jsonFile = $outputDir.'discoveries.json';
 file_put_contents($jsonFile, $json);
 
@@ -186,13 +186,6 @@ do {
     }
     $io->progressAdvance();
 
-    //
-    //
-    //
-    //
-    //
-    //
-    //
     $monsters[] = [
         'type' => $sheet->getCell('A'.$currentRow)->getValue(),
         'attaque' => $sheet->getCell('B'.$currentRow)->getValue(),
@@ -230,7 +223,7 @@ $io->progressStart();
 
 $sheet = $doc->getSheetByName('Weapons');
 
-$monsters = [];
+$weapons = [];
 $startRow = $currentRow = 2;
 
 do {
@@ -241,14 +234,7 @@ do {
     }
     $io->progressAdvance();
 
-    //
-    //
-    //
-    //
-    //
-    //
-    //
-    $monsters[] = [
+    $weapons[] = [
         'nom' => $sheet->getCell('A'.$currentRow)->getValue(),
         'cout' => $sheet->getCell('B'.$currentRow)->getValue(),
         'degats' => $sheet->getCell('C'.$currentRow)->getValue(),
@@ -262,8 +248,49 @@ $io->progressFinish();
 
 $io->block('Saving them as a JSON file');
 
-$json = json_encode($monsters, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR);
+$json = json_encode($weapons, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR);
 $jsonFile = $outputDir.'weapons.json';
+file_put_contents($jsonFile, $json);
+
+$io->success(sprintf('Done! Exported to file %s', $jsonFile));
+
+
+//
+//
+//
+//
+//
+//
+
+$io->block('Fetching victory conditions...');
+$io->progressStart();
+
+$sheet = $doc->getSheetByName('Victory');
+
+$victories = [];
+$startRow = $currentRow = 3;
+
+do {
+    $firstCell = trim($sheet->getCell('A'.$currentRow)->getValue() ?: '');
+
+    if (!$firstCell) {
+        continue;
+    }
+    $io->progressAdvance();
+
+    $victories[] = [
+        'condition_victoire' => $sheet->getCell('A'.$currentRow)->getValue(),
+    ];
+
+    $currentRow++;
+} while ($firstCell);
+
+$io->progressFinish();
+
+$io->block('Saving them as a JSON file');
+
+$json = json_encode($victories, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR);
+$jsonFile = $outputDir.'victories.json';
 file_put_contents($jsonFile, $json);
 
 $io->success(sprintf('Done! Exported to file %s', $jsonFile));

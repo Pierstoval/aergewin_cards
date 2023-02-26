@@ -67,9 +67,6 @@
         font-family: 'carolingia', serif;
         font-size: calc(20px * var(--sizesratio));
     }
-    .text-l {
-        font-size: calc(24px * var(--sizesratio));
-    }
     .flex {
         display: flex;
     }
@@ -93,16 +90,6 @@
             height: calc(40px * var(--sizesratio));
         }
     }
-    .actionscapacities {
-        justify-content: space-between;
-        width: calc(500px * var(--sizesratio));
-    }
-    .speed_icon {
-        top: 4px;
-        left: 50%;
-        margin-left: calc(-13px * var(--sizesratio));
-        width: calc(26px * var(--sizesratio));
-    }
     #actions {
         .actionleft {
             width: calc(60px * var(--sizesratio));
@@ -120,21 +107,6 @@
         width: calc(260px * var(--sizesratio));
         height: calc(130px * var(--sizesratio));
         font-size: calc(13px * var(--sizesratio));
-    }
-    .weaponinhandtitle {
-        width: calc(176px * var(--sizesratio));
-        text-align: left;
-    }
-    .weaponinhandtxt {
-        width: calc(80px * var(--sizesratio));
-    }
-    #inventory {
-        text-align: left;
-        td {
-            width: calc(280px * var(--sizesratio));
-            height: calc(130px * var(--sizesratio));
-            vertical-align: top;
-        }
     }
     .weapon-container {
         --padY: 35px;

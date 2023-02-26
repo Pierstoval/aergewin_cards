@@ -1,9 +1,9 @@
 <script lang="ts">
-    import Weapon from '$lib/Weapon.svelte';
-    import weapons from '$lib/data/weapons.json';
-    import {WeaponItem} from "../../lib/WeaponItem";
+    import Victory from '$lib/Victory.svelte';
+    import victories from '$lib/data/victories.json';
+    import {VictoryItem} from "../../lib/VictoryItem";
 
-    let data: Array<WeaponItem> = weapons;
+    let data: Array<VictoryItem> = victories;
 
     let background_only = false;
 </script>
@@ -11,8 +11,8 @@
 <button on:click={() => background_only = !background_only}>Background only: {background_only ? 'true' : 'false'}</button>
 
 <div style="text-align: center;">
-    {#each data as weapon}
-        <Weapon {weapon} {background_only} />
+    {#each data as victory}
+        <Victory {victory} {background_only} />
     {/each}
 </div>
 
