@@ -8,7 +8,6 @@
 
     cards.forEach((card: MonsterItem) => {
         for (let i = 0; i < card.amount; i++) {
-            console.info({data});
             data.push(card);
         }
     });

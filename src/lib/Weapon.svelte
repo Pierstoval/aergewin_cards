@@ -22,6 +22,9 @@
                 </td>
             </tr>
         </table>
+        <div class="weapon-image-container">
+            <img class="weapon-image" src="/armes/{weapon.nom}.png" alt="{weapon.nom}">
+        </div>
         <table class="absolute right0 bottom0">
             <tr>
                 <td id="capacity">
@@ -101,10 +104,24 @@
             font-weight: bolder;
         }
     }
+    .weapon-image-container {
+        --imgw: calc(72px * var(--sizesratio));
+        --imgh: calc(132px * var(--sizesratio));
+        height: var(--imgh);
+        width: var(--imgw);
+        position: absolute;
+        top: 0;
+        left: 32%;
+        text-align: center;
+    }
+    .weapon-image {
+        max-height: var(--imgh);
+        max-width: var(--imgw);
+    }
     #capacity {
         vertical-align: top;
         text-align: left;
-        width: calc(260px * var(--sizesratio));
+        width: calc(200px * var(--sizesratio));
         height: calc(130px * var(--sizesratio));
         font-size: calc(13px * var(--sizesratio));
     }
