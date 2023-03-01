@@ -13,41 +13,63 @@
 
         <table id="actions" class="absolute left0 bottom0">
             <tr>
-                <td class="actionleft titletext">
-                    <i class="fa-duotone fa-heart"></i>
+                <td class="titletext">
+                    <div class="actionleft">
+                        <i class="fa-duotone fa-heart"></i>
+                    </div>
                 </td>
-                <td class="actionright text-l titletext">{character.pv || ''}</td>
-            </tr>
-            <tr>
-                <td class="actionleft titletext relative">
-                    <img src="/speed_icon.png" class="absolute speed_icon">
-                </td>
-                <td class="actionright titletext">{character.nombre_actions|| ''}</td>
-            </tr>
-            <tr>
-                <td class="actionleft titletext">
-                    <i class="fa-duotone fa-sword"></i>
-                </td>
-                <td class="actionright titletext">
-                    {character.attaque || ''}
+                <td class="titletext">
+                    <div class="actionright">
+                        {character.pv || ''}
+                    </div>
                 </td>
             </tr>
             <tr>
-                <td class="actionleft titletext">
-                    <i class="fa-duotone fa-shield-quartered"></i>
+                <td class="titletext relative">
+                    <div class="actionleft">
+                        <img src="/speed_icon.png" class="absolute speed_icon">
+                    </div>
                 </td>
-                <td class="actionright titletext">{character.defense || ''}</td>
+                <td class="titletext">
+                    <div class="actionright">
+                        {character.nombre_actions|| ''}
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="titletext">
+                    <div class="actionleft">
+                        <i class="fa-duotone fa-sword"></i>
+                    </div>
+                </td>
+                <td class="titletext">
+                    <div class="actionright">
+                        {character.attaque || ''}
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="titletext">
+                    <div class="actionleft">
+                        <i class="fa-duotone fa-shield-quartered"></i>
+                    </div>
+                </td>
+                <td class="titletext">
+                    <div class="actionright">
+                        {character.defense || ''}
+                    </div>
+                </td>
             </tr>
         </table>
         <table class="absolute right0 bottom0">
             <tr>
-                <td id="capacity">
+                <td class="capacity">
                     <span class="titletext2">Capacités spéciales</span>
                     <br>{character.capacite_speciale || ''}
                 </td>
             </tr>
-            <tr id="inventory">
-                <td class="titletext2">Inventaire &amp; expérience</td>
+            <tr>
+                <td class="inventory titletext2">Inventaire &amp; expérience</td>
             </tr>
         </table>
     </div>
@@ -87,9 +109,6 @@
         font-family: 'carolingia', serif;
         font-size: calc(20px * var(--sizesratio));
     }
-    .text-l {
-        font-size: calc(24px * var(--sizesratio));
-    }
     .flex {
         display: flex;
     }
@@ -101,49 +120,48 @@
             height: calc(40px * var(--sizesratio));
         }
     }
-    .actionscapacities {
-        justify-content: space-between;
-        width: calc(500px * var(--sizesratio));
-    }
-    .speed_icon {
-        top: 4px;
-        left: 50%;
-        margin-left: calc(-13px * var(--sizesratio));
-        width: calc(26px * var(--sizesratio));
-    }
     #actions {
-        .actionleft {
-            width: calc(60px * var(--sizesratio));
-            height: calc(10px * var(--sizesratio));
+        --actionsheight: 28px;
+        text-align: center;
+        font-weight: bolder;
+        * {
+            padding: calc(1px * var(--sizesratio)) 0;
+            margin: 0;
+        }
+        .actionleft,
+        .actionright {
+            width: calc(75px * var(--sizesratio));
+            min-width: calc(75px * var(--sizesratio));
+            max-width: calc(75px * var(--sizesratio));
+            height: calc(var(--actionsheight) * var(--sizesratio));
+            min-height: calc(var(--actionsheight) * var(--sizesratio));
+            max-height: calc(var(--actionsheight) * var(--sizesratio));
+            line-height: unset;
+            font-size: calc(var(--actionsheight) * var(--sizesratio));
+            overflow: hidden;
+            //font-size: calc(var(--actionsheight) * var(--sizesratio));
         }
         .actionright {
-            text-align: center;
-            width: calc(60px * var(--sizesratio));
-            font-size: calc(1.5rem * var(--sizesratio));
-            font-weight: bolder;
+            padding-top: calc(5px * var(--sizesratio));
+        }
+        .speed_icon {
+            top: calc(1px * var(--sizesratio));
+            left: 50%;
+            margin-left: calc(-13px * var(--sizesratio));
+            height: calc(var(--actionsheight) * 1.15 * var(--sizesratio));
         }
     }
-    #capacity {
-        vertical-align: top;
-        text-align: left;
-        width: calc(260px * var(--sizesratio));
+    .capacity,
+    .inventory {
+        width: calc(249px * var(--sizesratio));
         height: calc(130px * var(--sizesratio));
+        text-align: left;
+        vertical-align: top;
+    }
+    .capacity {
         font-size: calc(13px * var(--sizesratio));
     }
-    .weaponinhandtitle {
-        width: calc(176px * var(--sizesratio));
-        text-align: left;
-    }
-    .weaponinhandtxt {
-        width: calc(80px * var(--sizesratio));
-    }
-    #inventory {
-        text-align: left;
-        td {
-            width: calc(280px * var(--sizesratio));
-            height: calc(130px * var(--sizesratio));
-            vertical-align: top;
-        }
+    .inventory {
     }
     .character-container {
         --padY: 35px;
@@ -166,15 +184,14 @@
                 visibility: hidden;
             }
         }
+    }
 
-
-        table {
-            margin: 5px 5px 0 5px;
-            td {
-                padding: 6px 5px 2px 5px;
-                border: solid 2px #fff;
-                vertical-align: middle;
-            }
+    table {
+        margin: 5px 5px 0 5px;
+        td {
+            padding: 6px 5px 2px 5px;
+            border: solid 2px #fff;
+            vertical-align: middle;
         }
     }
 </style>
