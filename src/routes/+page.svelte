@@ -9,6 +9,7 @@
     <li><a href="/discoveries">Discoveries</a></li>
     <li><a href="/weapons">Weapons</a></li>
     <li><a href="/victories">Victory conditions</a></li>
+    <li><a href="/soldiers">Soldiers tokens</a></li>
 </ul>
 
 <style lang="scss">
