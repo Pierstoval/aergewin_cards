@@ -4,12 +4,15 @@
     <li><a href="/events">Event cards</a></li>
     <li><a href="/characters">Character sheets</a></li>
     <li><a href="/empty-sheet">Empty character sheets</a></li>
+    <li><a href="/threats">Threats</a></li>
     <li><a href="/monsters">Monsters</a></li>
     <li><a href="/monsters-tokens">Monsters tokens</a></li>
     <li><a href="/discoveries">Discoveries</a></li>
     <li><a href="/weapons">Weapons</a></li>
     <li><a href="/victories">Victory conditions</a></li>
     <li><a href="/soldiers">Soldiers tokens</a></li>
+    <li><a href="/aid-actions">Game aid: actions</a></li>
+    <li><a href="/aid-combat">Game aid: combat</a></li>
 </ul>
 
 <style lang="scss">

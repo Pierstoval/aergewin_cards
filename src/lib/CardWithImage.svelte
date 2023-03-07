@@ -1,9 +1,9 @@
 <script lang="ts">
-    import type {CardItem} from "./CardItem";
+    import type {EventItem} from "./EventItem";
     import { Buffer } from 'buffer';
     import svg from '$lib/svg_filter';
 
-    export let card: CardItem;
+    export let card: EventItem;
 
     const svgImage = Buffer.from(svg).toString('base64');
 

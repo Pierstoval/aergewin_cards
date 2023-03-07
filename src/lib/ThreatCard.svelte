@@ -1,42 +1,37 @@
 <script lang="ts">
-    import type {DiscoveryCard} from "$lib/DiscoveryCard";
+    import type {ThreatItem} from "./ThreatItem";
     import { Buffer } from 'buffer';
     import svg from '$lib/svg_filter';
 
-    export let card: DiscoveryCard;
-
-    let invert = 80;
-    let hueRotate = 250;
+    export let card: ThreatItem;
 
     const svgImage = Buffer.from(svg).toString('base64');
 
-    const faIconCardStyle = getIcon();
-
-    function getIcon(): string {
-        invert = 20;
-        hueRotate = 60;
-        return 'compass';
-    }
+    const hueRotate = 0;
+    const invert = 0;
 </script>
 
-<div class="card-container bonus">
+<div class="card-container">
     <div class="card-background" style="filter:grayscale(50%) sepia(20%) invert({invert}%) hue-rotate({hueRotate}deg) contrast(150%);background:url(data:image/svg+xml;base64,{svgImage});"></div>
     <div class="card-frame">
         <div class="frame-header">
-            <div>
-                <h1 class="name">{card.nom.trim()}</h1>
-            </div>
-            <span class="frame-icon fa fa-{faIconCardStyle}"></span>
+            <h1 class="name">{card.nom}</h1>
         </div>
 
-        <div class="frame-text-box">
-            <p class="description ftb-inner-margin">
-                {card.effet}
+        <div class="frame-art" style="background-color: rgba(255, 255, 255, 0.75);">
+        </div>
+
+        <div class="frame-type-line">
+            <p class="type">
+                {card.effet || ''}
             </p>
-            <p class="flavour-text">"{card.storyline}"</p>
+            <p class="storyline">
+                {card.storyline || ''}
+            </p>
         </div>
 
-        <div class="frame-bottom-info inner-margin">
+        <div class="frame-bottom-info">
+
             <div class="fbi-left">
                 <p>Aergewin</p>
                 <p>2023 &#x2022; FR</p>
@@ -45,11 +40,12 @@
             <div class="fbi-right">
                 &#x99; &amp; &#169; 2023 Alex Rock
             </div>
+
         </div>
     </div>
 </div>
 
-<style lang="scss">
+<style>
 
     /*
         -------------------------
@@ -74,10 +70,6 @@
         margin-bottom: 7px;
     }
 
-    .frame-text-box {
-        box-shadow: 0 0 0 5px var(--frame-color), -3px 3px 2px 5px #171314;
-    }
-
     /*
         ----------------------
         ----------------------
@@ -86,8 +78,7 @@
         ----------------------
     */
     .frame-header,
-    .frame-type-line,
-    .frame-text-box {
+    .frame-type-line {
         overflow: hidden;
     }
 
@@ -100,12 +91,7 @@
         margin: 5px;
         box-sizing: border-box;
         background: #171314;
-        &.malus {
-            --frame-color: #CC5555;
-        }
-        &.bonus {
-            --frame-color: #5555CC;
-        }
+        --frame-color: #d7915d;
     }
     .card-background {
         position: absolute;
@@ -139,13 +125,7 @@
         flex-direction: column;
     }
 
-    .frame-header {
-        display: flex;
-        align-content: center;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1px 5px;
-    }
+
 
     .frame-header,
     .frame-type-line {
@@ -157,81 +137,60 @@
         margin-right: 5px;
         padding: 8px 0;
         display: flex;
-        flex-direction: row;
-        justify-content: space-between;
+        justify-content: space-evenly;
+        flex-direction: column;
         border-radius: 18px/40px;
     }
-    /*
-      Tue 27/3
-    */
+    .frame-type-line {
+        padding: 20px 0;
+        margin: 20px auto 55px auto;
+        width: 95%;
+        height: 160px;
+        border-radius: 18px/20px;
+    }
+
     .name,
-    .type {
-        text-align: left;
+    .type,
+    .storyline {
+        font-size: 1.3em;
         margin-left: 10px;
         align-self: baseline;
     }
     .name {
-        font-size: 1.8em;
         font-weight: 600;
     }
     .type {
-        font-size: 1em;
+        text-align: left;
+    }
+    .storyline {
+        font-style: italic;
+        text-align: left;
     }
 
     .frame-art {
-        width: 425px;
+        width: 415px;
         height: 320px;
-        margin: 0 10px;
+        margin: 1px auto 0;
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center;
-    }
-
-    .frame-type-line {
-        margin-top: 0;
-    }
-    .frame-icon {
-        margin-right: 14px;
-        font-size: 40px;
-        align-self: center;
-    }
-
-    .frame-text-box {
-        width: 425px;
-        height: 527px;
-        margin: 10px;
-        background: #d3ded6 url(https://image.ibb.co/dFcNx7/tile_bg_2.jpg);
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        padding: 50px 10px;
-        font-size: 2.2em;
-        border-radius: 20px;
-    }
-
-    .flavour-text {
-        font-style: italic;
-        padding: 10px 0;
     }
 
     p {
         margin-bottom: 5px;
     }
 
-    .ftb-inner-margin {
-        margin: 5px 1px;
-    }
+
+
 
     .frame-bottom-info {
         color: white;
+        position: relative;
         display: flex;
         justify-content: space-between;
-        margin: 5px 15px 0 15px;
+        margin: 15px 15px -10px 15px;
     }
 
-    .fbi-left {
-        flex: 1;
-    }
     .fbi-left p:first-of-type {
         margin-bottom: 1px;
     }

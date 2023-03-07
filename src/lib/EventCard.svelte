@@ -1,9 +1,9 @@
 <script lang="ts">
-    import type {CardItem} from "$lib/CardItem";
+    import type {EventItem} from "$lib/EventItem";
     import { Buffer } from 'buffer';
     import svg from '$lib/svg_filter';
 
-    export let card: CardItem;
+    export let card: EventItem;
 
     const svgImage = Buffer.from(svg).toString('base64');
 
@@ -13,15 +13,9 @@
 
     function getIcon(): string {
         if (card.style === 'Bonus') {
-            if (card.type === 'Persistant') {
-                return 'sun';
-            }
-            return 'heart';
+            return 'sun';
         }
-        if (card.type === 'Persistant') {
-            return 'cloud';
-        }
-        return 'skull-crossbones';
+        return 'cloud';
     }
 </script>
 
@@ -31,7 +25,7 @@
         <div class="frame-header">
             <div>
                 <h1 class="name">{card.nom.trim()}</h1>
-                <h2 class="type">{card.style} {card.type}</h2>
+                <h2 class="type">{card.style}</h2>
             </div>
             <span class="frame-icon fa fa-{faIconCardStyle}"></span>
         </div>
@@ -39,6 +33,11 @@
         <div class="frame-text-box">
             <p class="description ftb-inner-margin">
                 {card.effet}
+                {#if card.new_threats > 0}
+                    {@const plural = card.new_threats > 1}
+                    <br><br>
+                    Ajoutez {card.new_threats} jeton{plural ? 's' : ''} "Menace" sur la tuile sur laquelle vous vous trouvez.
+                {/if}
             </p>
             <p class="flavour-text">"{card.storyline}"</p>
         </div>
@@ -235,7 +234,7 @@
         margin: 5px 15px 0 15px;
     }
 
-    fbi-left {
+    .fbi-left {
         flex: 1;
     }
     .fbi-left p:first-of-type {
@@ -248,16 +247,8 @@
         top: 6px;
     }
 
-    .inner-margins {
-        margin: 0 10px;
-    }
-
     .fbi-right {
         flex: 1;
         text-align: right;
-    }
-    .frame-bottom-info img {
-        overflow: hidden;
-        max-width: 10px;
     }
 </style>

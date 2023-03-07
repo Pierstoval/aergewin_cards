@@ -14,7 +14,7 @@
 <div style="text-align: center;">
     {#each data as card}
         {#if background_only}
-            <BackgroundCard style="discovery" />
+            <BackgroundCard type="discovery" />
         {:else}
             <DiscoveryCardComponent {card} />
         {/if}

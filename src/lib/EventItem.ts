@@ -1,7 +1,7 @@
-export type CardItem = {
+export type EventItem = {
     nom: string;
     style: string;
-    type: string;
     effet: string;
+    new_threats: number;
     storyline: string;
 }

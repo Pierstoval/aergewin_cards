@@ -2,12 +2,12 @@
     import { Buffer } from 'buffer';
     import svg from '$lib/svg_filter';
 
-    export let style: string = '';
+    export let type: string = '';
 
     const svgImage = Buffer.from(svg).toString('base64');
 </script>
 
-<div class="card-container {style}">
+<div class="card-container {type}">
     <div class="rel card-image"></div>
     <div class="rel card-filter" style="background:url(data:image/svg+xml;base64,{svgImage});"></div>
 </div>
@@ -43,7 +43,8 @@
         .event & {
             filter: hue-rotate(250deg) saturate(300%);
         }
-        .monster & {
+        .monster &,
+        .threat & {
             filter: hue-rotate(0deg) saturate(300%);
         }
         .discovery & {

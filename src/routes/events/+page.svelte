@@ -1,10 +1,10 @@
 <script lang="ts">
-    import type {CardItem} from '$lib/CardItem.ts';
+    import type {EventItem} from '$lib/EventItem.ts';
     import EventCard from '$lib/EventCard.svelte';
     import BackgroundCard from '$lib/BackgroundCard.svelte';
-    import cards from '$lib/data/cards.json';
+    import cards from '$lib/data/events.json';
 
-    let data: Array<CardItem> = cards;
+    let data: Array<EventItem> = cards;
 
     let background_only = false;
 </script>
@@ -14,7 +14,7 @@
 <div style="text-align: center;">
     {#each data as card}
         {#if background_only}
-            <BackgroundCard style="event" />
+            <BackgroundCard type="event" />
         {:else}
             <EventCard {card} />
         {/if}

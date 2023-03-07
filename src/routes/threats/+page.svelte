@@ -1,16 +1,10 @@
 <script lang="ts">
-    import type {MonsterItem} from '$lib/MonsterItem.ts';
-    import MonsterCard from '$lib/MonsterCard.svelte';
+    import type {ThreatItem} from "$lib/ThreatItem";
+    import ThreatCard from '$lib/ThreatCard.svelte';
     import BackgroundCard from '$lib/BackgroundCard.svelte';
-    import cards from '$lib/data/monsters.json';
+    import cards from '$lib/data/threats.json';
 
-    let data: Array<MonsterItem> = [];
-
-    cards.forEach((card: MonsterItem) => {
-        for (let i = 0; i < card.amount; i++) {
-            data.push(card);
-        }
-    });
+    let data: Array<ThreatItem> = cards;
 
     let background_only = false;
 </script>
@@ -20,9 +14,9 @@
 <div style="text-align: center;">
     {#each data as card}
         {#if background_only}
-            <BackgroundCard type="monster" />
+            <BackgroundCard type="threat" />
         {:else}
-            <MonsterCard {card} />
+            <ThreatCard {card} />
         {/if}
     {/each}
 </div>

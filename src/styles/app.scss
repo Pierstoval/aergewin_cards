@@ -53,6 +53,12 @@ strong {
 	font-weight: bold;
 }
 /* End of reset */
+
 * {
   box-sizing: border-box;
+}
+
+@font-face {
+	font-family: 'carolingia';
+	src: url('/carolingia.ttf');
 }

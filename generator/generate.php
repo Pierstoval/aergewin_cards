@@ -40,6 +40,7 @@ $io->progressStart();
 $sheet = $doc->getSheetByName('Events');
 
 $cards = [];
+$boardgameJson = [];
 $startRow = $currentRow = 12;
 
 do {
@@ -52,10 +53,14 @@ do {
 
     $cards[] = [
         'nom' => $sheet->getCell('A'.$currentRow)->getValue(),
-        'style' => $sheet->getCell('B'.$currentRow)->getValue(),
-        'type' => $sheet->getCell('C'.$currentRow)->getValue(),
+        'style' => $sheet->getCell('C'.$currentRow)->getValue(),
         'effet' => $sheet->getCell('D'.$currentRow)->getValue(),
-        'storyline' => $sheet->getCell('E'.$currentRow)->getValue(),
+        'new_threats' => $sheet->getCell('E'.$currentRow)->getValue(),
+        'storyline' => $sheet->getCell('F'.$currentRow)->getValue(),
+    ];
+    $boardgameJson[] = [
+        'name' => $sheet->getCell('A'.$currentRow)->getValue(),
+        'type' => $sheet->getCell('C'.$currentRow)->getValue(),
     ];
 
     $currentRow++;
@@ -64,11 +69,15 @@ do {
 $io->progressFinish();
 
 $io->block('Saving them as a JSON file');
-
 $json = json_encode($cards, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR);
-$jsonFile = $outputDir.'cards.json';
+$jsonFile = $outputDir.'events.json';
 file_put_contents($jsonFile, $json);
+$io->success(sprintf('Done! Exported to file %s', $jsonFile));
 
+$io->block('Saving a custom JSON version for video-boardgame');
+$jsonFile = $outputDir.'boardgame_events.json';
+$json = json_encode($boardgameJson, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR);
+file_put_contents($jsonFile, $json);
 $io->success(sprintf('Done! Exported to file %s', $jsonFile));
 
 //
@@ -99,11 +108,11 @@ do {
         'attaque' => $sheet->getCell('B'.$currentRow)->getValue(),
         'defense' => $sheet->getCell('C'.$currentRow)->getValue(),
         'pv' => $sheet->getCell('D'.$currentRow)->getValue(),
-        'nombre_actions' => $sheet->getCell('E'.$currentRow)->getValue(),
-        'capacite_speciale' => $sheet->getCell('F'.$currentRow)->getValue(),
-        'arme' => $sheet->getCell('G'.$currentRow)->getValue(),
-        'degats' => $sheet->getCell('H'.$currentRow)->getCalculatedValue(),
-        'capacite_arme' => $sheet->getCell('I'.$currentRow)->getCalculatedValue(),
+        'nombre_actions' => $sheet->getCell('F'.$currentRow)->getValue(),
+        'capacite_speciale' => $sheet->getCell('G'.$currentRow)->getValue(),
+        'arme' => $sheet->getCell('H'.$currentRow)->getValue(),
+        'degats' => $sheet->getCell('I'.$currentRow)->getCalculatedValue(),
+        'capacite_arme' => $sheet->getCell('J'.$currentRow)->getCalculatedValue(),
     ];
 
     $currentRow++;
@@ -144,7 +153,6 @@ do {
 
     $discoveries[] = [
         'nom' => $sheet->getCell('A'.$currentRow)->getValue(),
-        'type' => $sheet->getCell('B'.$currentRow)->getValue(),
         'effet' => $sheet->getCell('C'.$currentRow)->getValue(),
         'storyline' => $sheet->getCell('D'.$currentRow)->getValue(),
     ];
@@ -236,9 +244,9 @@ do {
 
     $weapons[] = [
         'nom' => $sheet->getCell('A'.$currentRow)->getValue(),
-        'cout' => $sheet->getCell('B'.$currentRow)->getValue(),
-        'degats' => $sheet->getCell('C'.$currentRow)->getValue(),
-        'carac' => $sheet->getCell('D'.$currentRow)->getValue(),
+        'cout' => $sheet->getCell('C'.$currentRow)->getValue(),
+        'degats' => $sheet->getCell('D'.$currentRow)->getValue(),
+        'carac' => $sheet->getCell('E'.$currentRow)->getValue(),
     ];
 
     $currentRow++;
@@ -250,6 +258,49 @@ $io->block('Saving them as a JSON file');
 
 $json = json_encode($weapons, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR);
 $jsonFile = $outputDir.'weapons.json';
+file_put_contents($jsonFile, $json);
+
+$io->success(sprintf('Done! Exported to file %s', $jsonFile));
+
+
+//
+//
+//
+//
+//
+//
+
+$io->block('Fetching threats...');
+$io->progressStart();
+
+$sheet = $doc->getSheetByName('Threats');
+
+$threats = [];
+$startRow = $currentRow = 6;
+
+do {
+    $firstCell = trim($sheet->getCell('A'.$currentRow)->getValue() ?: '');
+
+    if (!$firstCell) {
+        continue;
+    }
+    $io->progressAdvance();
+
+    $threats[] = [
+        'nom' => $sheet->getCell('A'.$currentRow)->getValue(),
+        'effet' => $sheet->getCell('C'.$currentRow)->getValue(),
+        'storyline' => $sheet->getCell('D'.$currentRow)->getValue(),
+    ];
+
+    $currentRow++;
+} while ($firstCell);
+
+$io->progressFinish();
+
+$io->block('Saving them as a JSON file');
+
+$json = json_encode($threats, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR);
+$jsonFile = $outputDir.'threats.json';
 file_put_contents($jsonFile, $json);
 
 $io->success(sprintf('Done! Exported to file %s', $jsonFile));
