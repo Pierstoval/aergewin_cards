@@ -82,10 +82,6 @@
         --background-width: calc(600px * var(--sizesratio));
         --background-height: calc(500px * var(--sizesratio));
     }
-    @font-face {
-        font-family: 'carolingia';
-        src: url('/carolingia.ttf');
-    }
     .right0 {
         right: 0;
     }

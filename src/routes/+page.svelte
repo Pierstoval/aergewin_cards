@@ -10,6 +10,8 @@
     <li><a href="/weapons">Weapons</a></li>
     <li><a href="/victories">Victory conditions</a></li>
     <li><a href="/soldiers">Soldiers tokens</a></li>
+    <li><a href="/aid-actions">Game aid: actions</a></li>
+    <li><a href="/aid-combat">Game aid: combat</a></li>
 </ul>
 
 <style lang="scss">
