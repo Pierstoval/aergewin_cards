@@ -11,3 +11,5 @@ vite.config.ts.timestamp-*
 src/lib/data/*.json
 generator/data.ods
 vendor/
+output
+!output/.gitkeep
